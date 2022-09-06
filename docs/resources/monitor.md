@@ -54,6 +54,11 @@ resource "uptimerobot_monitor" "my_website" {
   - `basic`
   - `digest`
 * `interval` - the interval for the monitoring check (300 seconds by default).
+* `custom_http_statuses`
+  - `up` - Array of HTTP status codes that make the status of the monitor up
+  - `down` - Array of HTTP status codes that make the status of the monitor down
+>>>>>>> 61f3c8c (add docs)
+>>>>>>> 1251937 (add docs)
 
 ## Attributes Reference
 
