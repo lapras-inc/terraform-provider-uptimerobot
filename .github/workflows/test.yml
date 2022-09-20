@@ -5,6 +5,7 @@ on:
   push:
     paths-ignore:
       - "README.md"
+  workflow_dispatch: 
 jobs:
   build:
     runs-on: ubuntu-latest
