@@ -54,6 +54,7 @@ resource "uptimerobot_monitor" "my_website" {
   - `basic`
   - `digest`
 * `interval` - the interval for the monitoring check (300 seconds by default).
+* `timeout` - the timeout for the monitoring check (30 seconds by default). Available for HTTP, port and keyword monitoring.
 
 ## Attributes Reference
 
