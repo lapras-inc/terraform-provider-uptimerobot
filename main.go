@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/vexxhost/terraform-provider-uptimerobot/internal/provider"
+	"github.com/lapras-inc/terraform-provider-uptimerobot/internal/provider"
 )
 
 func main() {
