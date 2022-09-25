@@ -2,10 +2,10 @@ on:
   pull_request:
     paths-ignore:
       - "README.md"
-  push:
-    paths-ignore:
-      - "README.md"
   workflow_dispatch: 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
