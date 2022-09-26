@@ -165,11 +165,20 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "yktakaha4",
+      "name": "Yuuki Takahashi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20282867?v=4",
+      "profile": "https://yktakaha4.github.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "terraform-provider-uptimerobot",
-  "projectOwner": "louy",
+  "projectOwner": "lapras-inc",
   "repoType": "github",
   "repoHost": "https://github.com",
   "commitConvention": "none"
