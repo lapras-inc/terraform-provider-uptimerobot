@@ -2,6 +2,11 @@ on:
   pull_request:
     paths-ignore:
       - "README.md"
+  push:
+    paths-ignore:
+      - "REAME.md"
+    branches:
+      - master
   workflow_dispatch: 
 concurrency:
   group: ${{ github.workflow }}

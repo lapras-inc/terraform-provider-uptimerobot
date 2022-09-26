@@ -1,7 +1,8 @@
 # Terraform UptimeRobot Provider
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
-[![Build Status](https://github.com/louy/terraform-provider-uptimerobot/workflows/test/badge.svg)](https://github.com/louy/terraform-provider-uptimerobot/actions?query=branch%3Amaster+workflow%3Atest)
+[![Release Status](https://github.com/lapras-inc/terraform-provider-uptimerobot/actions/workflows/release.yml/badge.svg)](https://github.com/lapras-inc/terraform-provider-uptimerobot/actions/workflows/release.yml)
+[![Test Status](https://github.com/lapras-inc/terraform-provider-uptimerobot/actions/workflows/test.yml/badge.svg)](https://github.com/lapras-inc/terraform-provider-uptimerobot/actions/workflows/test.yml)
 
 ## Migrating from the old provider
 
