@@ -1,10 +1,10 @@
 on:
   pull_request:
     paths-ignore:
-      - "README.md"
+      - "**.md"
   push:
     paths-ignore:
-      - "REAME.md"
+      - "**.md"
     branches:
       - master
   workflow_dispatch: 
