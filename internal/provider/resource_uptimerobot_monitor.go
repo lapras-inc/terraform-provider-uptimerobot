@@ -338,7 +338,9 @@ func updateMonitorResource(d *schema.ResourceData, m uptimerobotapi.Monitor) err
 	d.Set("type", m.Type)
 	d.Set("status", m.Status)
 	d.Set("interval", m.Interval)
-	d.Set("timeout", m.Timeout)
+	if m.Type == "port" || m.Type == "keyword" || m.Type == "http" {
+		d.Set("timeout", m.Timeout)
+	}
 
 	d.Set("sub_type", m.SubType)
 	d.Set("port", m.Port)
