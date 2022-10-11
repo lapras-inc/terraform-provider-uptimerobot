@@ -76,6 +76,7 @@ type Monitor struct {
 	Type         string `json:"type"`
 	Status       string `json:"status"`
 	Interval     int    `json:"interval"`
+	Timeout      int    `json:"timeout"`
 
 	SubType string `json:"sub_type"`
 	Port    int    `json:"port"`
@@ -143,6 +144,7 @@ func (client UptimeRobotApiClient) GetMonitor(id int) (m Monitor, err error) {
 		} else {
 			m.Port = int(monitor["port"].(float64))
 		}
+		m.Timeout = int(monitor["timeout"].(float64))
 		break
 	case "keyword":
 		m.KeywordType = intToString(monitorKeywordType, int(monitor["keyword_type"].(float64)))
@@ -159,6 +161,7 @@ func (client UptimeRobotApiClient) GetMonitor(id int) (m Monitor, err error) {
 		// m.HTTPMethod = intToString(monitorHTTPMethod, int(monitor["http_method"].(float64)))
 		m.HTTPUsername = monitor["http_username"].(string)
 		m.HTTPPassword = monitor["http_password"].(string)
+		m.Timeout = int(monitor["timeout"].(float64))
 		break
 	case "http":
 		if val := monitor["http_auth_type"]; val != nil {
@@ -172,6 +175,7 @@ func (client UptimeRobotApiClient) GetMonitor(id int) (m Monitor, err error) {
 		// m.HTTPMethod = intToString(monitorHTTPMethod, int(monitor["http_method"].(float64)))
 		m.HTTPUsername = monitor["http_username"].(string)
 		m.HTTPPassword = monitor["http_password"].(string)
+		m.Timeout = int(monitor["timeout"].(float64))
 		break
 	}
 
@@ -228,6 +232,7 @@ type MonitorCreateRequest struct {
 	URL          string
 	Type         string
 	Interval     int
+	Timeout      int
 
 	SubType string
 	Port    int
@@ -259,6 +264,7 @@ func (client UptimeRobotApiClient) CreateMonitor(req MonitorCreateRequest) (m Mo
 	case "port":
 		data.Add("sub_type", fmt.Sprintf("%d", monitorSubType[req.SubType]))
 		data.Add("port", fmt.Sprintf("%d", req.Port))
+		data.Add("timeout", fmt.Sprintf("%d", req.Timeout))
 		break
 	case "keyword":
 		data.Add("keyword_type", fmt.Sprintf("%d", monitorKeywordType[req.KeywordType]))
@@ -268,6 +274,7 @@ func (client UptimeRobotApiClient) CreateMonitor(req MonitorCreateRequest) (m Mo
 		data.Add("http_auth_type", fmt.Sprintf("%d", monitorHTTPAuthType[req.HTTPAuthType]))
 		data.Add("http_username", req.HTTPUsername)
 		data.Add("http_password", req.HTTPPassword)
+		data.Add("timeout", fmt.Sprintf("%d", req.Timeout))
 		break
 	case "http":
 		data.Add("http_method", fmt.Sprintf("%d", monitorHTTPMethod[req.HTTPMethod]))
@@ -279,6 +286,7 @@ func (client UptimeRobotApiClient) CreateMonitor(req MonitorCreateRequest) (m Mo
 			data.Add("post_content_type", "0")
 			data.Add("post_value", "{}")
 		}
+		data.Add("timeout", fmt.Sprintf("%d", req.Timeout))
 		break
 	}
 
@@ -336,6 +344,7 @@ type MonitorUpdateRequest struct {
 	URL          string
 	Type         string
 	Interval     int
+	Timeout      int
 
 	SubType string
 	Port    int
@@ -368,6 +377,7 @@ func (client UptimeRobotApiClient) UpdateMonitor(req MonitorUpdateRequest) (m Mo
 	case "port":
 		data.Add("sub_type", fmt.Sprintf("%d", monitorSubType[req.SubType]))
 		data.Add("port", fmt.Sprintf("%d", req.Port))
+		data.Add("timeout", fmt.Sprintf("%d", req.Timeout))
 		break
 	case "keyword":
 		data.Add("keyword_type", fmt.Sprintf("%d", monitorKeywordType[req.KeywordType]))
@@ -377,12 +387,14 @@ func (client UptimeRobotApiClient) UpdateMonitor(req MonitorUpdateRequest) (m Mo
 		data.Add("http_auth_type", fmt.Sprintf("%d", monitorHTTPAuthType[req.HTTPAuthType]))
 		data.Add("http_username", req.HTTPUsername)
 		data.Add("http_password", req.HTTPPassword)
+		data.Add("timeout", fmt.Sprintf("%d", req.Timeout))
 		break
 	case "http":
 		data.Add("http_method", fmt.Sprintf("%d", monitorHTTPMethod[req.HTTPMethod]))
 		data.Add("http_auth_type", fmt.Sprintf("%d", monitorHTTPAuthType[req.HTTPAuthType]))
 		data.Add("http_username", req.HTTPUsername)
 		data.Add("http_password", req.HTTPPassword)
+		data.Add("timeout", fmt.Sprintf("%d", req.Timeout))
 		break
 	}
 
