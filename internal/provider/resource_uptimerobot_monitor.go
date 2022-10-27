@@ -61,6 +61,11 @@ func resourceMonitor() *schema.Resource {
 				Optional: true,
 				Default:  300,
 			},
+			"timeout": {
+				Type:     schema.TypeInt,
+				Optional: true,
+				Default:  30,
+			},
 			"http_method": {
 				Type:         schema.TypeString,
 				Optional:     true,
@@ -153,6 +158,7 @@ func resourceMonitorCreate(d *schema.ResourceData, m interface{}) error {
 	case "port":
 		req.SubType = d.Get("sub_type").(string)
 		req.Port = d.Get("port").(int)
+		req.Timeout = d.Get("timeout").(int)
 		break
 	case "keyword":
 		req.KeywordType = d.Get("keyword_type").(string)
@@ -162,12 +168,14 @@ func resourceMonitorCreate(d *schema.ResourceData, m interface{}) error {
 		req.HTTPUsername = d.Get("http_username").(string)
 		req.HTTPPassword = d.Get("http_password").(string)
 		req.HTTPAuthType = d.Get("http_auth_type").(string)
+		req.Timeout = d.Get("timeout").(int)
 		break
 	case "http":
 		req.HTTPMethod = d.Get("http_method").(string)
 		req.HTTPUsername = d.Get("http_username").(string)
 		req.HTTPPassword = d.Get("http_password").(string)
 		req.HTTPAuthType = d.Get("http_auth_type").(string)
+		req.Timeout = d.Get("timeout").(int)
 		break
 	}
 
@@ -249,6 +257,7 @@ func resourceMonitorUpdate(d *schema.ResourceData, m interface{}) error {
 	case "port":
 		req.SubType = d.Get("sub_type").(string)
 		req.Port = d.Get("port").(int)
+		req.Timeout = d.Get("timeout").(int)
 		break
 	case "keyword":
 		req.KeywordType = d.Get("keyword_type").(string)
@@ -258,12 +267,14 @@ func resourceMonitorUpdate(d *schema.ResourceData, m interface{}) error {
 		req.HTTPUsername = d.Get("http_username").(string)
 		req.HTTPPassword = d.Get("http_password").(string)
 		req.HTTPAuthType = d.Get("http_auth_type").(string)
+		req.Timeout = d.Get("timeout").(int)
 		break
 	case "http":
 		req.HTTPMethod = d.Get("http_method").(string)
 		req.HTTPUsername = d.Get("http_username").(string)
 		req.HTTPPassword = d.Get("http_password").(string)
 		req.HTTPAuthType = d.Get("http_auth_type").(string)
+		req.Timeout = d.Get("timeout").(int)
 		break
 	}
 
@@ -327,6 +338,9 @@ func updateMonitorResource(d *schema.ResourceData, m uptimerobotapi.Monitor) err
 	d.Set("type", m.Type)
 	d.Set("status", m.Status)
 	d.Set("interval", m.Interval)
+	if m.Type == "port" || m.Type == "keyword" || m.Type == "http" {
+		d.Set("timeout", m.Timeout)
+	}
 
 	d.Set("sub_type", m.SubType)
 	d.Set("port", m.Port)

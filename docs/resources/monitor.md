@@ -57,6 +57,7 @@ resource "uptimerobot_monitor" "my_website" {
 * `custom_http_statuses`
   - `up` - Array of HTTP status codes that make the status of the monitor up
   - `down` - Array of HTTP status codes that make the status of the monitor down
+* `timeout` - the timeout for the monitoring check (30 seconds by default). Available for HTTP, port and keyword monitoring.
 
 ## Attributes Reference
 

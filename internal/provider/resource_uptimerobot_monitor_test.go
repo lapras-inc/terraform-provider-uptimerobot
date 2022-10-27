@@ -546,6 +546,198 @@ func TestUptimeRobotDataResourceMonitor_custom_interval(t *testing.T) {
 	})
 }
 
+func TestUptimeRobotDataResourceMonitor_custom_timeout_http(t *testing.T) {
+	var FriendlyName = "TF Test: custom timeout http"
+	var Type = "http"
+	var URL = "https://google.com"
+	var Timeout = 60
+	var Timeout2 = 45
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckMonitorDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(`
+				resource "uptimerobot_monitor" "test" {
+					friendly_name  = "%s"
+					type           = "%s"
+					url            = "%s"
+					timeout        = "%d"
+				}
+				`, FriendlyName, Type, URL, Timeout),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "friendly_name", FriendlyName),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "type", Type),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "url", URL),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "timeout", fmt.Sprintf(`%d`, Timeout)),
+				),
+			},
+			resource.TestStep{
+				ResourceName: "uptimerobot_monitor.test",
+				ImportState:  true,
+				// NB: Disabled due to http_method issue
+				// ImportStateVerify: true,
+			},
+			resource.TestStep{
+				Config: fmt.Sprintf(`
+				resource "uptimerobot_monitor" "test" {
+					friendly_name  = "%s"
+					type           = "%s"
+					url            = "%s"
+					timeout        = "%d"
+				}
+				`, FriendlyName, Type, URL, Timeout2),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "friendly_name", FriendlyName),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "type", Type),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "url", URL),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "timeout", fmt.Sprintf(`%d`, Timeout2)),
+				),
+			},
+			resource.TestStep{
+				ResourceName: "uptimerobot_monitor.test",
+				ImportState:  true,
+				// NB: Disabled due to http_method issue
+				// ImportStateVerify: true,
+			},
+		},
+	})
+}
+
+func TestUptimeRobotDataResourceMonitor_custom_timeout_port(t *testing.T) {
+	var FriendlyName = "TF Test: custom timeout port"
+	var Type = "port"
+	var URL = "google.com"
+	var SubType = "http"
+	var Timeout = 60
+	var Timeout2 = 45
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckMonitorDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(`
+				resource "uptimerobot_monitor" "test" {
+					friendly_name = "%s"
+					type          = "%s"
+					url           = "%s"
+					sub_type      = "%s"
+					timeout       = "%d"
+				}
+				`, FriendlyName, Type, URL, SubType, Timeout),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "friendly_name", FriendlyName),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "type", Type),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "url", URL),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "sub_type", SubType),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "timeout", fmt.Sprintf(`%d`, Timeout)),
+				),
+			},
+			resource.TestStep{
+				ResourceName: "uptimerobot_monitor.test",
+				ImportState:  true,
+				// NB: Disabled due to http_method issue
+				// ImportStateVerify: true,
+			},
+			resource.TestStep{
+				Config: fmt.Sprintf(`
+				resource "uptimerobot_monitor" "test" {
+					friendly_name = "%s"
+					type          = "%s"
+					url           = "%s"
+					sub_type      = "%s"
+					timeout       = "%d"
+				}
+				`, FriendlyName, Type, URL, SubType, Timeout2),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "friendly_name", FriendlyName),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "type", Type),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "url", URL),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "sub_type", SubType),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "timeout", fmt.Sprintf(`%d`, Timeout2)),
+				),
+			},
+			resource.TestStep{
+				ResourceName: "uptimerobot_monitor.test",
+				ImportState:  true,
+				// NB: Disabled due to http_method issue
+				// ImportStateVerify: true,
+			},
+		},
+	})
+}
+
+func TestUptimeRobotDataResourceMonitor_custom_timeout_keyword(t *testing.T) {
+	var FriendlyName = "TF Test: custom timeout keyword"
+	var Type = "keyword"
+	var URL = "https://google.com"
+	var KeywordType = "not exists"
+	var KeywordValue = "yahoo"
+	var Timeout = 60
+	var Timeout2 = 45
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckMonitorDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(`
+				resource "uptimerobot_monitor" "test" {
+					friendly_name = "%s"
+					type          = "%s"
+					url           = "%s"
+					keyword_type  = "%s"
+					keyword_value = "%s"
+					timeout       = "%d"
+				}
+				`, FriendlyName, Type, URL, KeywordType, KeywordValue, Timeout),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "friendly_name", FriendlyName),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "type", Type),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "url", URL),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "keyword_type", KeywordType),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "keyword_value", KeywordValue),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "timeout", fmt.Sprintf(`%d`, Timeout)),
+				),
+			},
+			resource.TestStep{
+				ResourceName: "uptimerobot_monitor.test",
+				ImportState:  true,
+				// NB: Disabled due to http_method issue
+				// ImportStateVerify: true,
+			},
+			resource.TestStep{
+				Config: fmt.Sprintf(`
+				resource "uptimerobot_monitor" "test" {
+					friendly_name = "%s"
+					type          = "%s"
+					url           = "%s"
+					keyword_type  = "%s"
+					keyword_value = "%s"
+					timeout       = "%d"
+				}
+				`, FriendlyName, Type, URL, KeywordType, KeywordValue, Timeout2),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "friendly_name", FriendlyName),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "type", Type),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "url", URL),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "keyword_type", KeywordType),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "keyword_value", KeywordValue),
+					resource.TestCheckResourceAttr("uptimerobot_monitor.test", "timeout", fmt.Sprintf(`%d`, Timeout2)),
+				),
+			},
+			resource.TestStep{
+				ResourceName: "uptimerobot_monitor.test",
+				ImportState:  true,
+				// NB: Disabled due to http_method issue
+				// ImportStateVerify: true,
+			},
+		},
+	})
+}
+
 func TestUptimeRobotDataResourceMonitor_http_method(t *testing.T) {
 	var FriendlyName = "TF Test: http method monitor"
 	var Type = "http"
